@@ -1,0 +1,20 @@
+{
+  "name": "abceditorlab",
+  "version": "1.0.0",
+  "description": "ABC project for EditorLab 2016",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nathan Jenkins <web@nathanjenkins.com.au> (http://nathanjenkins.com.au/)",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^1.5.2",
+    "cheerio": "^0.20.0",
+    "express": "^4.13.4",
+    "fb": "^1.0.2",
+    "request": "^2.69.0",
+    "twitter": "^1.2.5",
+    "watson-developer-cloud": "^1.2.4"
+  }
+}

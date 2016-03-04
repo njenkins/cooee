@@ -1,0 +1,41 @@
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: #F2F2DF;
+  color: #666;
+}
+img, div {
+  max-width: 100%
+}
+.img-circle {
+  border-radius: 50%;
+}
+.dash {
+  margin: 0 auto;
+}
+.col-5 {
+  width: 18%;
+  padding: 1%;
+  float: left;
+  text-align: center;
+  min-width: 150px;
+}
+.col-5 span {
+  display: block;
+  font-size: 21px;
+}
+.col-5 .concept {
+  margin-top: 21px;
+  font-size: 18px;
+  min-height: 42px;
+}
+.col-5 .score {
+  font-size: 22px
+}
+.brand {
+  display: block;
+  width: 150px;
+  margin-left: 3.2%;
+}
+.loading {
+  margin-left: 3.2%;
+}
