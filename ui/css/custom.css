@@ -13,8 +13,8 @@ img, div {
   margin: 0 auto;
 }
 .col-5 {
-  width: 18%;
-  padding: 1%;
+  width: 16%;
+  padding: 2%;
   float: left;
   text-align: center;
   min-width: 150px;
