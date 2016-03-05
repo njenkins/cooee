@@ -35,7 +35,7 @@ app.get('/', function (req, res) {
                     //There is nothing scientific about this. Just an example of weighting
                     //concepts[concept] = response[concept] * (count + 1);
                     if(concepts.hasOwnProperty(concept)){
-                      count = 1;
+                      
                       concepts[concept] = concepts[concept] + (response[concept] * count);
                     }
                     else {
