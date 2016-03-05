@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cooee</title>
+    <script src="js/angular-1.5.0.min.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link href="css/custom.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -15,11 +16,14 @@
     <![endif]-->
   </head>
   <body>
-    <div class="row dash">
+    <div class="row dash" ng-app="cooee" ng-controller="cooee">
       <img src="images/cooee.png" alt="trending today" class="brand"/>
-      <span class="loading">Loading everything i'll need to find common topics amongst site content and comment threads</span>
+          <div class="col-5" ng-repeat="result in topResults">
+            <img class="img-circle" src="{{result.image}}" alt="{{result.label}}"/>
+            <span class="concept">{{result.label}}</span>
+            <span class="score">RANK {{$index + 1}}</span>
+          </div>
     </div>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="js/cooee.js"></script>
+      <script src="controllers/mainController.js"></script>
   </body>
 </html>
