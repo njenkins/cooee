@@ -14,37 +14,45 @@ app.use('/ui', express.static('ui'));
 
 app.get('/', function (req, res) {
   //Get all article links from ABC news site
-  abcScraper.getAllArticleLinks(function(urls){
+  abcScraper.getAllArticleLinks('http://abc.net.au/news','.module-body h3 a', function(urls){
       var concepts = {};
+      var trawlCount = 0;
+      var trawlCountLimit = 20;
       //Get plain text of each article body
       async.forEach(urls, function(url, callback) {
-        //Get the number of fb interactions for url
-        facebookUtils.getInteractionCount(url, function(count){
-            //Get plain text of article
-            abcScraper.getArticlePlainText(url, function(response){
+        trawlCount++;
+        if(trawlCount < trawlCountLimit) {
+          //Get the number of fb interactions for url
+          facebookUtils.getInteractionCount(url, function(count){
+              //Get plain text of article
+              abcScraper.getArticlePlainText(url, function(response){
 
-            //Get concepts from the article text
-            conceptUtils.getConceptsFromText(response, function(err, response){
-              for (var concept in response) {
-                if (response.hasOwnProperty(concept)) {
-                  //Multiply text for weighting. Each interaction multiplies
-                  //There is nothing scientific about this. Just an example of weighting
-                  //concepts[concept] = response[concept] * (count + 1);
-                  if(concepts.hasOwnProperty(concept)){
-                    concepts[concept] = concepts[concept] + (response[concept] * count);
+              //Get concepts from the article text
+              conceptUtils.getConceptsFromText(response, function(err, response){
+                for (var concept in response) {
+                  if (response.hasOwnProperty(concept)) {
+                    //Multiply text for weighting. Each interaction multiplies
+                    //There is nothing scientific about this. Just an example of weighting
+                    //concepts[concept] = response[concept] * (count + 1);
+                    if(concepts.hasOwnProperty(concept)){
+                      count = 1;
+                      concepts[concept] = concepts[concept] + (response[concept] * count);
+                    }
+                    else {
+                      concepts[concept] = response[concept] * count;
+                    }
+
                   }
-                  else {
-                    concepts[concept] = response[concept] * count;
-                  }
 
-                }
+              }
+              callback();
+              });
 
-            }
-            callback();
             });
-
           });
-        });
+
+        }
+
 /*
 
           */
