@@ -31,10 +31,10 @@ app.get('/', function (req, res) {
                   //There is nothing scientific about this. Just an example of weighting
                   //concepts[concept] = response[concept] * (count + 1);
                   if(concepts.hasOwnProperty(concept)){
-                    concepts[concept] = concepts[concept] + response[concept];
+                    concepts[concept] = concepts[concept] + (response[concept] * count);
                   }
                   else {
-                    concepts[concept] = response[concept];
+                    concepts[concept] = response[concept] * count;
                   }
 
                 }
@@ -83,12 +83,13 @@ app.get('/image/:concept', function (req, res) {
       text: concept
     }, function(err, result) {
       var firstPhoto = result.photos.photo[0];
-      flickr.photos.getInfo({photo_id : firstPhoto.id}, function(e, flickr){
-        var image = {};
-        image.path =  'https://farm' + flickr.photo.farm+'.staticflickr.com/'+flickr.photo.server+'/'+flickr.photo.id+'_'+flickr.photo.secret+'_q.jpg';
-        res.json(image);
-      });
-
+      if(firstPhoto){
+        flickr.photos.getInfo({photo_id : firstPhoto.id}, function(e, flickr){
+          var image = {};
+          image.path =  'https://farm' + flickr.photo.farm+'.staticflickr.com/'+flickr.photo.server+'/'+flickr.photo.id+'_'+flickr.photo.secret+'_q.jpg';
+          res.json(image);
+        });
+      }
       }
     );
 
