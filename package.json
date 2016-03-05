@@ -13,6 +13,7 @@
     "cheerio": "^0.20.0",
     "express": "^4.13.4",
     "fb": "^1.0.2",
+    "flickrapi": "^0.4.1",
     "request": "^2.69.0",
     "twitter": "^1.2.5",
     "watson-developer-cloud": "^1.2.4"

@@ -26,8 +26,11 @@ function getAllArticleLinks(callback){
       var $links = $('.article-index h3 a');
       var urls = []
       $links.each(function (i,v){
+        if(urls.length < 10){
           //Make links absolute
           urls.push('http://abc.net.au' + $(v).attr('href'));
+
+        }
       });
       callback(urls);
     }
