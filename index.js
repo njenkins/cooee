@@ -84,7 +84,9 @@ app.get('/image/:concept', function (req, res) {
 
   Flickr.tokenOnly(flickrOptions, function(error, flickr) {
     flickr.photos.search({
-      text: concept
+      text: concept,
+      sort: 'relevance',
+      media: 'photos'
     }, function(err, result) {
       var firstPhoto = result.photos.photo[0];
       if(firstPhoto){
