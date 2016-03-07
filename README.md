@@ -9,8 +9,14 @@ cd cooee
 # Install dependencies
 npm install
 
+# Populate configs.js with required auth keys.
+# Skeleton file yet to be committed to project
+
 # Start app
-node index.js
+npm start
+
+# Project dashboard will now be accessible at http://localhost:3000/ui
+
 ```
 
 ## What does this do?
