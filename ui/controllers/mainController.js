@@ -1,16 +1,16 @@
 var app = angular.module("cooee", []);
 app.controller("cooee", function($scope, $http) {
-    $http.get('http://localhost:3000/').then(function(response){
-      var rank = 1;
-      var excludedConcepts = [
-        'ABC News',
-        'Typeof',
-        'MPEG-4 Part 14'
-      ];
-      $scope.topResults = [];
-      response.data.forEach(function(elem) {
-        if(excludedConcepts.indexOf(elem[0]) == -1){
-          if(rank < 6){
+    getTopConcepts(10)
+    /*
+    Get top concepts from articles
+    @param articleCount int Number of articles to use for analysis
+    */
+
+    function getTopConcepts(articleCount){
+      $http.get('http://localhost:3000/'+articleCount).then(function(response){
+        var rank = 1;
+        $scope.topResults = [];
+        response.data.forEach(function(elem) {
             var concept = {};
             concept.label = elem[0];
             $http.get('http://localhost:3000/image/'+elem[0]).then(function(result){
@@ -20,12 +20,10 @@ app.controller("cooee", function($scope, $http) {
                 console.log('something went wrong');
             });
             rank++;
-          }
-
-      }
+        });
+      }, function(e){
+        console.log('something went wrong');
       });
-    }, function(e){
-      console.log('something went wrong');
-    });
-  
+    }
+    $scope.getTopConcepts = getTopConcepts;
 });

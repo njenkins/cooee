@@ -11,17 +11,15 @@ var configs = require('./configs').configs;
 //For proto serve front end from subdirectory
 app.use('/ui', express.static('ui'));
 
-
-app.get('/', function (req, res) {
-  //Get all article links from ABC news site
-  abcScraper.getAllArticleLinks('http://abc.net.au/news','.module-body h3 a', function(urls){
+app.get('/:maxResults?', function (req, res) {
+  var maxResults = 20;
+  if(req.params.maxResults){
+    maxResults = req.params.maxResults;
+  }
+  abcScraper.getAllArticleLinks('http://abc.net.au/news','.module-body h3 a', maxResults, function(urls){
       var concepts = {};
-      var trawlCount = 0;
-      var trawlCountLimit = 20;
       //Get plain text of each article body
       async.forEach(urls, function(url, callback) {
-        trawlCount++;
-        if(trawlCount < trawlCountLimit) {
           //Get the number of fb interactions for url
           facebookUtils.getInteractionCount(url, function(count){
               //Get plain text of article
@@ -34,16 +32,22 @@ app.get('/', function (req, res) {
                     //Multiply text for weighting. Each interaction multiplies
                     //There is nothing scientific about this. Just an example of weighting
                     //concepts[concept] = response[concept] * (count + 1);
-                    if(concepts.hasOwnProperty(concept)){
-                      
-                      concepts[concept] = concepts[concept] + (response[concept] * count);
-                    }
-                    else {
-                      concepts[concept] = response[concept] * count;
-                    }
 
+                    //Hide common scraped values not related to article content.
+                    var excludedConcepts = [
+                      'ABC News',
+                      'Typeof',
+                      'MPEG-4 Part 14'
+                    ];
+                    if(excludedConcepts.indexOf(concept) == -1){
+                      if(concepts.hasOwnProperty(concept)){
+                          concepts[concept] = concepts[concept] + (response[concept] * count);
+                      }
+                      else {
+                        concepts[concept] = response[concept] * count;
+                      }
+                    }
                   }
-
               }
               callback();
               });
@@ -51,26 +55,12 @@ app.get('/', function (req, res) {
             });
           });
 
-        }
-
-/*
-
-          */
-
 
       }, function(){
         var sortedConcepts = utils.sortProperties(concepts);
-//        var conceptsSorted = Object.keys(concepts).sort(function(a,b){return concepts[a]-concepts[b]})
-        res.json(sortedConcepts);
+        res.json(sortedConcepts.slice(0,5));
       });
-
-
-
-
   });
-
-
-
 });
 
 app.listen(3000, function () {
@@ -86,6 +76,12 @@ app.get('/image/:concept', function (req, res) {
         secret: configs.flickr.secret
   };
   var concept = req.params.concept;
+
+  /*
+  TODO - Check if a local image for target concept exists,
+  If so, use this. If not, use Flickr API to retrieve
+  */
+
   Flickr.tokenOnly(flickrOptions, function(error, flickr) {
     flickr.photos.search({
       text: concept

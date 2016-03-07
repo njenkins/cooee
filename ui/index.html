@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="cooee">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,9 +16,9 @@
     <![endif]-->
   </head>
   <body>
-    <div class="row dash" ng-app="cooee" ng-controller="cooee">
-      <img src="images/cooee.png" alt="trending today" class="brand"/>
-          <div class="col-5" ng-repeat="result in topResults">
+    <div class="row dash" ng-controller="cooee">
+      <img src="images/cooee.png" alt="cooee" class="brand" ng-click="getTopTopics(10)"/>
+          <div class="col-5" ng-repeat="result in topResults" ng-show="topResults">
             <img class="img-circle" src="{{result.image}}" alt="{{result.label}}"/>
             <span class="concept">{{result.label}}</span>
             <span class="score">RANK {{$index + 1}}</span>
