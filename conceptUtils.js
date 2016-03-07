@@ -7,11 +7,11 @@ var concept_insights = watson.concept_insights({
   version: 'v2'
 });
 
-/*
-*
+/**
+Call the Watson Concepts API to extract concepts from supplied text
+@param copy {string} Text to analyze
+@param callback {function} Response handler
 */
-
-//Call the Watson Concepts API to extract concepts from supplied text
 function getConceptsFromText(copy, callback){
   var params = {
     graph: '/graphs/wikipedia/en-20120601',

@@ -1,11 +1,11 @@
 var cheerio = require('cheerio');
 var request = require('request');
 
-/*
+/**
 Get the plain text article content for use in proto.
-A real world use case could use a content api to extract cleanly
+A real world use case could use a content api to extract cleanly.
 @param url {string} url for article to scrape text content of
-@param callback {string} response handler
+@param callback {function} response handler
 */
 function getArticlePlainText(url, callback){
   request(url, function (error, response, html) {

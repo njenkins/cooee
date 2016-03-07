@@ -65,9 +65,7 @@ app.get('/:maxResults?', function (req, res) {
   });
 });
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
-});
+
 
 app.get('/image/:concept', function (req, res) {
   //Move all this flickr stuff into it's own module at some point.
@@ -100,4 +98,8 @@ app.get('/image/:concept', function (req, res) {
     );
 
   });
+});
+//Start app on port 3000.
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!');
 });

@@ -5,7 +5,7 @@ app.controller("cooee", function($scope, $http) {
 
     //If samplset size changes, rebuild results
 
-    /*
+    /**
     Get top concepts from articles
     @param articleCount {int} Number of articles to use for analysis
     */
