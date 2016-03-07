@@ -1,6 +1,6 @@
 var app = angular.module("cooee", []);
 app.controller("cooee", function($scope, $http) {
-    getTopConcepts(20);
+    getTopConcepts(10);
     /*
     Get top concepts from articles
     @param articleCount {int} Number of articles to use for analysis

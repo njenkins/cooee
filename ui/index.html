@@ -17,7 +17,7 @@
   </head>
   <body>
     <div class="row dash" ng-controller="cooee">
-      <img src="images/cooee.png" alt="cooee" class="brand" ng-click="getTopTopics(20)"/>
+      <img src="images/cooee.png" alt="cooee" class="brand" ng-click="getTopTopics(10)"/>
       <img src="images/default.gif" alt="loading results"class="loading" ng-hide="topResults"/>
           <div class="col-5" ng-repeat="result in topResults" ng-show="topResults">
             <img class="img-circle" src="{{result.image}}" alt="{{result.label}}"/>
