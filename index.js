@@ -38,7 +38,10 @@ app.get('/:maxResults?', function (req, res) {
                   'ABC News',
                   'Typeof',
                   'News',
-                  'MPEG-4 Part 14'
+                  'MPEG-4 Part 14',
+                  'Million',
+                  'Thousand',
+                  'Hundred'
                 ];
                 if(excludedConcepts.indexOf(concept) == -1){
                   if(concepts.hasOwnProperty(concept)){
@@ -55,7 +58,7 @@ app.get('/:maxResults?', function (req, res) {
         });
       });
     }, function(){
-      
+
       var sortedConcepts = utils.sortProperties(concepts);
       res.json(sortedConcepts.slice(0,5));
     });
