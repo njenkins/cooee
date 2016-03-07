@@ -22,7 +22,7 @@ app.get('/:maxResults?', function (req, res) {
       //Get the number of fb interactions for url
       facebookUtils.getInteractionCount(url, function(count){
           //Get plain text of article
-          abcScraper.getArticlePlainText(url, function(response){
+          abcScraper.getArticlePlainText(url, '.article.section', function(response){
           /*This takes alot of time. Best approach would be to cache results locally
           and test url as key before scraping again*/
 

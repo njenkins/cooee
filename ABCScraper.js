@@ -5,13 +5,14 @@ var request = require('request');
 Get the plain text article content for use in proto.
 A real world use case could use a content api to extract cleanly.
 @param url {string} url for article to scrape text content of
+@param articleContentSelector {string} css selector for article content area
 @param callback {function} response handler
 */
-function getArticlePlainText(url, callback){
+function getArticlePlainText(url, articleContentSelector, callback){
   request(url, function (error, response, html) {
     if (!error && response.statusCode == 200) {
       var $ = cheerio.load(html);
-      var plainText = $('.article.section').text().replace(/\s{2,9999}/g, ' ');
+      var plainText = $(articleContentSelector).text().replace(/\s{2,9999}/g, ' ');
         callback(plainText);
       }
     });
