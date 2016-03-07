@@ -8,3 +8,4 @@ This project will:
 * Use Natural Language Processing to extract and rank concepts from these articles
 * Extract the number of interactions on Facebook for the target url and use this number as a multiplier for each found concept
 * Aggregate all concept scores and return the top 5
+* Use the Flickr API to retrieve a thumbnail image for each concept
