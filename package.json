@@ -4,7 +4,8 @@
   "description": "ABC project for EditorLab 2016",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "author": "Nathan Jenkins <web@nathanjenkins.com.au> (http://nathanjenkins.com.au/)",
   "license": "ISC",

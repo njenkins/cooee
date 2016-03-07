@@ -1,5 +1,17 @@
 # Cooee Prototype for EditorsLab
 Surface topics and concepts of interest to the audience. Not atomic articles.
+## Setup
+``````
+# Get repo
+git clone https://github.com/njenkins/cooee.git
+cd cooee
+
+# Install dependencies
+npm install
+
+# Start app
+node index.js
+```
 
 ## What does this do?
 This project will:
