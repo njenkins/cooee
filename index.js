@@ -12,31 +12,30 @@ var configs = require('./configs').configs;
 app.use('/ui', express.static('ui'));
 
 app.get('/:maxResults?', function (req, res) {
-  var maxResults = 20;
-  if(req.params.maxResults){
-    maxResults = req.params.maxResults;
-  }
+
+  var maxResults = req.params.maxResults;
   abcScraper.getAllArticleLinks('http://abc.net.au/news','.module-body h3 a', maxResults, function(urls){
       var concepts = {};
+
       //Get plain text of each article body
       async.forEach(urls, function(url, callback) {
           //Get the number of fb interactions for url
           facebookUtils.getInteractionCount(url, function(count){
               //Get plain text of article
               abcScraper.getArticlePlainText(url, function(response){
-
+                console.log(response);
               //Get concepts from the article text
               conceptUtils.getConceptsFromText(response, function(err, response){
                 for (var concept in response) {
                   if (response.hasOwnProperty(concept)) {
                     //Multiply text for weighting. Each interaction multiplies
                     //There is nothing scientific about this. Just an example of weighting
-                    //concepts[concept] = response[concept] * (count + 1);
 
                     //Hide common scraped values not related to article content.
                     var excludedConcepts = [
                       'ABC News',
                       'Typeof',
+                      'News',
                       'MPEG-4 Part 14'
                     ];
                     if(excludedConcepts.indexOf(concept) == -1){
