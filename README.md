@@ -10,7 +10,6 @@ cd cooee
 npm install
 
 # Populate configs.js with required auth keys.
-# Skeleton file yet to be committed to project
 
 # Start app
 npm start
