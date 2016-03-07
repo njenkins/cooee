@@ -55,6 +55,7 @@ app.get('/:maxResults?', function (req, res) {
         });
       });
     }, function(){
+      
       var sortedConcepts = utils.sortProperties(concepts);
       res.json(sortedConcepts.slice(0,5));
     });

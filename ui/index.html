@@ -18,12 +18,20 @@
   <body>
     <div class="row dash" ng-controller="cooee">
       <img src="images/cooee.png" alt="cooee" class="brand" ng-click="getTopTopics(10)"/>
-      <img src="images/default.gif" alt="loading results"class="loading" ng-hide="topResults"/>
+      <img src="images/default.gif" alt="loading results" class="loading" ng-hide="topResults"/>
           <div class="col-5" ng-repeat="result in topResults" ng-show="topResults">
             <img class="img-circle" src="{{result.image}}" alt="{{result.label}}"/>
             <span class="concept">{{result.label}}</span>
             <span class="score">RANK {{$index + 1}}</span>
           </div>
+          <div class="userControls">
+            <label for="aticleCount">Sample size</label>
+            <select ng-model="articleCount" name="articleCount" ng-change="getTopConcepts(articleCount)">
+              <option value="5" ng-selected="articleCount == 5">5</option>
+              <option value="10" ng-selected="articleCount == 10">10</option>
+              <option value="20" ng-selected="articleCOunt == 20">20</option>
+            </select>
+        </div>
     </div>
       <script src="controllers/mainController.js"></script>
   </body>

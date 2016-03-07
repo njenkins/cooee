@@ -1,6 +1,10 @@
 var app = angular.module("cooee", []);
 app.controller("cooee", function($scope, $http) {
-    getTopConcepts(10);
+    $scope.articleCount = 10;
+    getTopConcepts($scope.articleCount);
+
+    //If samplset size changes, rebuild results
+
     /*
     Get top concepts from articles
     @param articleCount {int} Number of articles to use for analysis

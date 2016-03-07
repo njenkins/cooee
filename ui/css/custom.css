@@ -42,7 +42,9 @@ img, div {
 .loading {
   margin-left: 2.6%;
 }
-
+.userControls {
+  clear: both;
+}
 @media (max-width : 970px){
   .col-5 {
       width: 29%;
