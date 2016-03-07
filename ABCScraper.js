@@ -4,6 +4,8 @@ var request = require('request');
 /*
 Get the plain text article content for use in proto.
 A real world use case could use a content api to extract cleanly
+@param url {string} url for article to scrape text content of
+@param callback {string} response handler
 */
 function getArticlePlainText(url, callback){
   request(url, function (error, response, html) {
@@ -18,6 +20,10 @@ function getArticlePlainText(url, callback){
 /**
 Get all article links from the just in page for proto. Real world application could use
 a content api or harvest links shared via the facebook / twitter apis.
+@param landingUrl {string} The url to harvest links from
+@param articleLinkSelector {string} css selector for article link
+@param maxResults {int} The maximum number of concepts to return
+@param callback {function} Response handler
 */
 function getAllArticleLinks(landingUrl, articleLinkSelector, maxResults, callback){
   request(landingUrl, function (error, response, html) {
@@ -28,7 +34,11 @@ function getAllArticleLinks(landingUrl, articleLinkSelector, maxResults, callbac
       $links.each(function (i,v){
         if(urls.length < maxResults){
           //Make links absolute
-          urls.push('http://abc.net.au' + $(v).attr('href'));
+          var url = 'http://abc.net.au' + $(v).attr('href');
+          //To prevent inflated results, make sure link is unique
+          if(urls.indexOf(url) == -1){
+            urls.push(url);
+          }
         }
       });
       callback(urls);
