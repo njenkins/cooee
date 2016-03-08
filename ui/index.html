@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cooee</title>
     <script src="js/angular-1.5.0.min.js"></script>
+    <script src="controllers/mainController.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link href="css/custom.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -25,6 +26,7 @@
             <span class="score">RANK {{$index + 1}}</span>
           </div>
           <div class="userControls">
+            {{progressMessage}}
             <label for="aticleCount">Sample size</label>
             <select ng-model="articleCount" name="articleCount" ng-change="getTopConcepts(articleCount)">
               <option value="5" ng-selected="articleCount == 5">5</option>
@@ -35,6 +37,5 @@
             </select>
         </div>
     </div>
-      <script src="controllers/mainController.js"></script>
   </body>
 </html>

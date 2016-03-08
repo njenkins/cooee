@@ -13,6 +13,7 @@ Call the Watson Concepts API to extract concepts from supplied text
 @param callback {function} Response handler
 */
 function getConceptsFromText(copy, callback){
+  var relevanceThreshold = 0.6;
   var params = {
     graph: '/graphs/wikipedia/en-20120601',
     text: copy
@@ -28,8 +29,12 @@ function getConceptsFromText(copy, callback){
       var concepts = {};
       var annotations = res.annotations;
       annotations.forEach(function(annotation) {
-        var label = annotation.concept.label;
-        concepts[label] = annotation.score;
+        //Try to filter out noise
+        console.log(annotation.concept.label + ':' + annotation.score);
+        if(annotation.score > relevanceThreshold){
+          var label = annotation.concept.label;
+          concepts[label] = annotation.score;
+        }
       });
       callback(null, concepts);
     }
