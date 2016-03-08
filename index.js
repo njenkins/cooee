@@ -25,36 +25,41 @@ app.get('/:maxResults?', function (req, res) {
           abcScraper.getArticlePlainText(url, '.article.section', function(response){
           /*This takes alot of time. Best approach would be to cache results locally
           and test url as key before scraping again*/
+          if(response){
+            //Get concepts from the article text
+            conceptUtils.getConceptsFromText(response, function(err, response){
+              for (var concept in response) {
+                if (response.hasOwnProperty(concept)) {
+                  //Multiply text for weighting. Each interaction multiplies
+                  //There is nothing scientific about this. Just an example of weighting
 
-          //Get concepts from the article text
-          conceptUtils.getConceptsFromText(response, function(err, response){
-            for (var concept in response) {
-              if (response.hasOwnProperty(concept)) {
-                //Multiply text for weighting. Each interaction multiplies
-                //There is nothing scientific about this. Just an example of weighting
-
-                //Hide common scraped values not related to article content.
-                var excludedConcepts = [
-                  'ABC News',
-                  'Typeof',
-                  'News',
-                  'MPEG-4 Part 14',
-                  'Million',
-                  'Thousand',
-                  'Hundred'
-                ];
-                if(excludedConcepts.indexOf(concept) == -1){
-                  if(concepts.hasOwnProperty(concept)){
-                      concepts[concept] = concepts[concept] + (response[concept] * count);
-                  }
-                  else {
-                    concepts[concept] = response[concept] * count;
+                  //Hide common scraped values not related to article content.
+                  var excludedConcepts = [
+                    'ABC News',
+                    'Typeof',
+                    'News',
+                    'MPEG-4 Part 14',
+                    'Million',
+                    'Thousand',
+                    'Hundred'
+                  ];
+                  if(excludedConcepts.indexOf(concept) == -1){
+                    if(concepts.hasOwnProperty(concept)){
+                        concepts[concept] = concepts[concept] + (response[concept] * count);
+                    }
+                    else {
+                      concepts[concept] = response[concept] * count;
+                    }
                   }
                 }
               }
-            }
+              callback();
+            });
+          }
+          else {
             callback();
-          });
+          }
+
         });
       });
     }, function(){
