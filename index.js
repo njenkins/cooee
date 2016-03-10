@@ -5,11 +5,13 @@ var abcScraper = require('./ABCScraper');
 var async = require('async');
 var facebookUtils = require('./facebookUtils');
 var utils = require('./utils');
-var Flickr = require("flickrapi");
 var configs = require('./configs').configs;
+var images = require('./routes/images');
+
 //For proto serve front end from subdirectory
 app.use('/ui', express.static('ui'));
 
+app.use('/images', images);
 app.get('/:maxResults?', function (req, res) {
 
   var maxResults = req.params.maxResults || 10;
@@ -70,42 +72,6 @@ app.get('/:maxResults?', function (req, res) {
   });
 });
 
-
-
-app.get('/image/:concept', function (req, res) {
-  //Move all this flickr stuff into it's own module at some point.
-  //Maybe use a different image api
-  //Just a quick hack to get it working
-  var flickrOptions = {
-        api_key: configs.flickr.api_key,
-        secret: configs.flickr.secret
-  };
-  var concept = req.params.concept;
-
-  /*
-  TODO - Check if a local image for target concept exists,
-  If so, use this. If not, use Flickr API to retrieve
-  */
-
-  Flickr.tokenOnly(flickrOptions, function(error, flickr) {
-    flickr.photos.search({
-      text: concept,
-      sort: 'relevance',
-      media: 'photos'
-    }, function(err, result) {
-      var firstPhoto = result.photos.photo[0];
-      if(firstPhoto){
-        flickr.photos.getInfo({photo_id : firstPhoto.id}, function(e, flickr){
-          var image = {};
-          image.path =  'https://farm' + flickr.photo.farm+'.staticflickr.com/'+flickr.photo.server+'/'+flickr.photo.id+'_'+flickr.photo.secret+'_q.jpg';
-          res.json(image);
-        });
-      }
-      }
-    );
-
-  });
-});
 //Start app on port 3000.
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
