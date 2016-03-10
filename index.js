@@ -7,13 +7,23 @@ var facebookUtils = require('./facebookUtils');
 var utils = require('./utils');
 var Flickr = require("flickrapi");
 var configs = require('./configs').configs;
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 //For proto serve front end from subdirectory
 app.use('/ui', express.static('ui'));
 
-app.get('/:maxResults?', function (req, res) {
+app.post('/concepts', function(req, res){
+  conceptUtils.getConceptsFromText(req.body.message, function(err, response){
+    res.json(response);
+  });
+});
 
+app.get('/:maxResults?', function (req, res) {
   var maxResults = req.params.maxResults || 10;
   abcScraper.getAllArticleLinks('http://abc.net.au/news','.module-body h3 a', maxResults, function(urls){
+
     var concepts = {};
 
     var allArticleContent = [];
