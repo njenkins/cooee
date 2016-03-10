@@ -7,17 +7,14 @@ var facebookUtils = require('./facebookUtils');
 var utils = require('./utils');
 var configs = require('./configs').configs;
 var images = require('./routes/images');
-var bodyParser = require('body-parser');
-app.use(bodyParser.json()); // support json encoded bodies
-app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+var concepts = require('./routes/concepts');
+
 //For proto serve front end from subdirectory
 app.use('/ui', express.static('ui'));
 
 app.use('/images', images);
-app.post('/concepts', function(req, res){
-    res.json(response);
-  });
-});
+app.use('/concepts', concepts);
+
 app.get('/:maxResults?', function (req, res) {
   var maxResults = req.params.maxResults || 10;
   abcScraper.getAllArticleLinks('http://abc.net.au/news','.module-body h3 a', maxResults, function(urls){

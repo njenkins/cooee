@@ -30,7 +30,6 @@ function getConceptsFromText(copy, callback){
       var annotations = res.annotations;
       annotations.forEach(function(annotation) {
         //Try to filter out noise
-        console.log(annotation.concept.label + ':' + annotation.score);
         if(annotation.score > relevanceThreshold){
           var label = annotation.concept.label;
           concepts[label] = annotation.score;
