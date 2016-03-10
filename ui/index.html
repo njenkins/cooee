@@ -21,7 +21,7 @@
       <img src="images/cooee.png" alt="cooee" class="brand" />
       <img src="images/default.gif" alt="loading results" class="loading" ng-hide="topResults"/>
           <div class="col-5" ng-repeat="result in topResults" ng-show="topResults">
-            <img class="img-circle" src="{{result.image}}" alt="{{result.label}}"/>
+            <img class="img-circle" ng-src="{{result.image}}" alt="{{result.label}}"/>
             <span class="concept">{{result.label}}</span>
             <span class="score">RANK {{$index + 1}}</span>
           </div>
@@ -33,8 +33,7 @@
               <option value="10" ng-selected="articleCount == 10">10</option>
               <option value="20" ng-selected="articleCOunt == 20">20</option>
               <option value="50" ng-selected="articleCOunt == 50">50</option>
-
-            </select>
+    </select>
         </div>
     </div>
   </body>
