@@ -21,6 +21,10 @@ function getInteractionCount(url, callback){
         var count = result.shares || 0;
         callback(count);
       }
+      else {
+        console.log('Error connecting, setting to 1');
+        callback(1);
+      }
     });
 }
 
