@@ -11,13 +11,13 @@ app.controller("cooee", function($scope, $http) {
     */
     function getTopConcepts(articleCount){
       $scope.progressMessage = 'Analyzing ' + articleCount + ' most recent articles to extract concepts.';
-      $http.get('http://localhost:3000/'+articleCount).then(function(response){
+      $http.get('/'+articleCount).then(function(response){
         $scope.topResults = [];
         response.data.forEach(function(elem) {
           var concept = {};
           concept.label = elem[0];
           $scope.progressMessage = 'Looking for an image for ' + elem[0] +'.'
-          $http.get('http://localhost:3000/images/'+elem[0]).then(function(result){
+          $http.get('/images/'+elem[0]).then(function(result){
             $scope.progressMessage = 'Found an image for ' + elem[0]
             concept.image = result.data.path;
             $scope.topResults.push(concept);
