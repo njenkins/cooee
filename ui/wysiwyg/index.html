@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+  <html ng-app="wysiwyg">
+    <head>
+      <!--Import Google Icon Font-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+      <script src="js/angular-1.5.0.min.js"></script>
+      <script src="js/wysiwyg.js"></script>
+
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="css/custom.css"  media="screen,projection"/>
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+      <div class="container" ng-controller="wysiwyg">
+        <div class="container">
+          <h1 ng-click="getAllTopics(article.text)">Write a new article</h1>
+        </div>
+      <div class="row">
+       <form class="col s12">
+         <div class="row">
+           <div class="input-field col s12">
+             <textarea id="textarea1" class="materialize-textarea" ng-enter="getAllTopics(article.text)" ng-model="article.text"></textarea>
+             <label for="textarea1">Type your article content here</label>
+           </div>
+         </div>
+       </form>
+       <div class="progress" ng-show="searching">
+         <div class="indeterminate"></div>
+       </div>
+        <div class="topicTags" ng-repeat="concept in concepts">
+          <get-thumbnail concept="{{concept}}"></get-thumbnail>
+        </div>
+      </div>
+      <!--Import jQuery before materialize.js-->
+
+</div>
+    </body>
+  </html>
