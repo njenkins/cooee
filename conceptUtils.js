@@ -22,7 +22,8 @@ function getConceptsFromText(copy, callback){
   // Retrieve the concepts for input text
   concept_insights.graphs.annotateText(params, function(err, res) {
     if (err){
-      throw err;
+      console.log(err);
+      //throw err;
     }
     else {
       //At this point we're only using label and rank

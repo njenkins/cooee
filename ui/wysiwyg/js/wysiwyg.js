@@ -8,15 +8,17 @@ app.controller("wysiwyg", function($scope, $http) {
   var postData = {};
   postData.message = text;
   $scope.searching = true;
-    $http.post('/concepts', postData).then(function(successResponse){
+    $http.post('/concepts/text', postData).then(function(successResponse){
       $scope.concepts = [];
         var concepts = successResponse.data;
-        for (var concept in concepts) {
-          if (concepts.hasOwnProperty(concept)) {
-            $scope.concepts.push(concept);
-            $scope.searching = false;
+
+          for (var concept in concepts) {
+            if (concepts.hasOwnProperty(concept)) {
+              $scope.concepts.push(concept);
+              $scope.searching = false;
+            }
           }
-        }
+
     });
 
   }
