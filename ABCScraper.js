@@ -1,5 +1,6 @@
 var cheerio = require('cheerio');
 var request = require('request');
+var dbUtils = require('./dbUtils');
 
 /**
 Get the plain text article content for use in proto.
@@ -9,12 +10,15 @@ A real world use case could use a content api to extract cleanly.
 @param callback {function} response handler
 */
 function getArticlePlainText(url, articleContentSelector, callback){
+  //todo - first check if url content is in cache
+
   request(url, function (error, response, html) {
     if (!error && response.statusCode == 200) {
       var $ = cheerio.load(html);
       var plainText = $(articleContentSelector).text().replace(/\s{2,9999}/g, ' ');
-        callback(plainText);
-      }
+      dbUtils.addRecord([url, plainText]);
+      callback(plainText);
+    }
     });
 }
 
