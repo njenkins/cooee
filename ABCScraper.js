@@ -11,15 +11,24 @@ A real world use case could use a content api to extract cleanly.
 */
 function getArticlePlainText(url, articleContentSelector, callback){
   //todo - first check if url content is in cache
-
-  request(url, function (error, response, html) {
-    if (!error && response.statusCode == 200) {
-      var $ = cheerio.load(html);
-      var plainText = $(articleContentSelector).text().replace(/\s{2,9999}/g, ' ');
-      dbUtils.addRecord([url, plainText]);
-      callback(plainText);
+  dbUtils.getRecord(url, function(result){
+    if(result){
+      callback(result.articleContent);
     }
-    });
+    else {
+      request(url, function (error, response, html) {
+          if (!error && response.statusCode == 200) {
+            var $ = cheerio.load(html);
+            var plainText = $(articleContentSelector).text().replace(/\s{2,9999}/g, ' ');
+            dbUtils.addRecord([url, plainText]);
+            callback(plainText);
+          }
+      });
+    }
+  });
+
+
+
 }
 
 /**

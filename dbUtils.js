@@ -1,6 +1,7 @@
 var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database("data.sqlite");
-initDb();
+//initDb();
+//getRecord('http://abc.net.au/news/2016-03-14/bishop-to-hold-talks-with-iran-foreign-minister-dr-javad-zarif/7243474');
 
 function initDb(callback){
   db.serialize(function() {
@@ -22,11 +23,17 @@ function recordExists(){
 
 }
 
-function getRecord(){
-
+function getRecord(url){
+  db.run("SELECT * FROM data WHERE url = ?", [url], function(err, row) {
+    return row;
+  });
 }
 
 function truncateTable(){
+
+}
+
+function getAllRecords(){
 
 }
 
@@ -35,5 +42,6 @@ module.exports = {
   addRecord : addRecord,
   recordExists : recordExists,
   getRecord : getRecord,
+  getAllRecords : getAllRecords,
   truncateTable : truncateTable
 }
