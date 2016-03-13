@@ -23,9 +23,9 @@ function recordExists(){
 
 }
 
-function getRecord(url){
-  db.run("SELECT * FROM data WHERE url = ?", [url], function(err, row) {
-    return row;
+function getRecord(url, callback){
+  db.get("SELECT * FROM data WHERE url = ?", [url], function(err, row) {
+    callback(row);
   });
 }
 
