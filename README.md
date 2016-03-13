@@ -26,3 +26,7 @@ This project will:
 * Extract the number of interactions on Facebook for the target url and use this number as a multiplier for each found concept
 * Aggregate all concept scores and return the top 5
 * Use the Flickr API to retrieve a thumbnail image for each concept
+
+Since the HackDay another use case example has been added to the project. This example shows a WYSIWYG editor retrieving concepts from text as an author is writing an article.
+
+This example can be viewed at http://localhost:3000/ui/wysiwyg
